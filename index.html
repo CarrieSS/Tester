@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+   <script src="angular.js"></script>
+   <script src="app.js"></script>
+   <link rel="stylesheet" href="button.css">
+   <link rel="stylesheet" href="bootstrap.min.css">
+  </head>
+  
+  <body ng-app="myApp" ng-controller="myCtrl">
+
+    <div>
+
+      <div ng-hide="isAuthenticated">
+        <div class="loginMargin">
+          Please enter your company code: <input class="inputCode" ng-model="code"/><br/>
+          <div class="errorMessage">
+          {{ errorMessage.error }} <br/>
+          </div>
+          <button class="button okButton" ng-click="login(code)">OK</button>
+        </div>
+      </div>
+
+      <div ng-show="isAuthenticated">
+        <div class="headMargin">
+          <h1>Settings</h1>
+        </div>
+
+        <div class="divMargin">
+          <div id="Menu">
+            <div ng-repeat="(key, value) in message">
+              <input  id="{{key}}" type="text" class="inputText" value="{{value}}"/>
+              <br />
+            </div>
+          </div>
+          
+          <br />
+          <button type="button" class="button cancelButton" >Cancel</button>
+          <button type="button" class="button saveButton" ng-click="saveConfirm()">Save</button>
+          <br /><br /><br />
+        </div> 
+      </div>
+
+    </div>
+  </body>
+ 
+</html>
