@@ -21,16 +21,21 @@ angular.module("myApp", [])
 			};
 
 			$scope.saveConfirm = function(){
-				var inputs = document.getElementById('Menu').getElementsByTagName('input');
-				var obj = Object();
+				var inputs = document.getElementById('Menu').getElementsByTagName('textarea');
+				var objEn = Object();
 				var objFr = Object();
 
-				for(var i = 0; i < inputs.length; i++){
-					obj[inputs[i].id] = inputs[i].value;
-					objFr[inputs[i].id] = inputs[i].value + "FRENCH";
+				for (let i = 0; i < inputs.length; i++) {
+					if (inputs[i].value === '') {
+						objEn[inputs[i].id] = inputs[i].placeholder;
+		  				objFr[inputs[i].id] = inputs[i].placeholder + 'FRENCH';
+					} else {
+						objEn[inputs[i].id] = inputs[i].value;
+						objFr[inputs[i].id] = inputs[i].value + 'FRENCH';	
+					}
 				}
 
-				console.log(JSON.stringify(obj));
+				console.log(JSON.stringify(objEn));
 				console.log(JSON.stringify(objFr));
 	
 				console.log(companyCode);
