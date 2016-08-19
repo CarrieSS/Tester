@@ -22,11 +22,12 @@
           </div>
           <div class="row">
             <div class="col-md-6 col-md-offset-3">
-              <div class="errorMessage">
-                {{ errorMessage.error }} <br/><br/>
+              <div ng-show="showError" class="errorMessage">
+                {{ errorMessage.error }} 
               </div>
             </div>
           </div>
+          <br/>
           <div class="row">
             <div class="col-md-6 col-md-offset-3">
               <button class="button okButton" ng-click="login(code)">OK</button>
@@ -36,43 +37,52 @@
       </div>
     </div>
 
-      <div ng-show="isAuthenticated">
-        <div class="container-fluid">
-          <div class="divMargin">
-            <div class="headMargin">
-              <h1>Settings</h1>
-            </div>
-
-            <div id="Menu">
-              <table class="table">
-                <tr ng-repeat="(key, value) in message">
-                  <td>
-                    <div class="col-md-5">
-                      {{value}} <br />
-                    </div>
-                    <div class="col-md-6">
-                      <textarea id="{{key}}" type="text" class="inputText" placeholder="{{value}}"></textarea>
-                    </div>   
-                  </td> 
-                </tr>     
-              </table>
-            </div>
-
-            <br />
-            <div class="row">
-              <div class="col-md-4 col-md-offset-5">
-                <button type="button" class="button saveButton" ng-click="saveConfirm()">Save</button>
-                <button type="button" class="button cancelButton" ng-click="window.location.reload()">
-                  Cancel
-                </button>
-              </div>
-              <br /><br /><br />
-            </div> 
-
+    <div ng-show="isAuthenticated">
+      <div class="container-fluid">
+        <div class="divMargin">
+          <div class="headMargin">
+            <h1>Settings</h1>
           </div>
-        </div>
 
+          <div id="Menu">
+            <table class="table">
+              <tr ng-repeat="(key, value) in messageEn">
+                <td>
+                  <div class="col-md-5">
+                    {{value}} <br/>
+                  </div>
+                  <div class="col-md-6">
+                    <textarea id="{{key}}" type="text" class="inputText" placeholder="{{value}}"></textarea>
+                  </div>   
+                </td> 
+              </tr>     
+            </table>
+          </div>
+
+          <br/>
+          <div class="row">
+            <div class="col-md-4 col-md-offset-5">
+              <div class="saveSuccessMessage">
+                <span ng-show="showSaveSuccess">
+                  {{ saveSuccess }} <br /><br />
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <br />
+          <div class="row">
+            <div class="col-md-4 col-md-offset-5">
+              <button type="button" class="button saveButton" ng-click="saveConfirm()">Save</button>
+              <button type="button" class="button cancelButton" ng-click="cancelButton()">
+                Cancel
+              </button>
+            </div>
+            <br /><br /><br />
+          </div> 
+
+        </div>
+      </div>
     </div>
   </body>
- 
 </html>

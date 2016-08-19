@@ -1,22 +1,31 @@
 angular.module("myApp", [])
-		.controller("myCtrl", function ($scope, $http) { 
+		.controller("myCtrl", function ($scope, $http, $timeout) { 
 
 			var companyCode;
 			$scope.isAuthenticated = false;
+			$scope.showError = false;
+			$scope.showSaveSuccess = false;
+			$scope.previousSetting = {};
 
 			$scope.login = function(code){
 				if(code != null){
-					$http.get('default.json').then((response) => {
-						$scope.message = response.data;
-					});
-					
 					$scope.isAuthenticated = true;	
 					companyCode = code;
-					
+
+					$http.get('default.json').then((response) => {
+						$scope.messageEn = response.data;
+						angular.copy($scope.messageEn, $scope.previousSetting);
+		  				return $scope.previousSetting;
+					});
+
 				} else{
+					$scope.showError = true;
 					$scope.errorMessage = {
 						error: "Invalid company code."
 					};
+					$timeout(() => {
+						this.showError = false;
+					}, 3000);
 				}
 			};
 
@@ -39,10 +48,17 @@ angular.module("myApp", [])
 				console.log(JSON.stringify(objFr));
 	
 				console.log(companyCode);
+
+				this.saveSuccess = 'Changes have been saved.';
+				this.showSaveSuccess = true;
+				$timeout(() => {
+					this.showSaveSuccess = false;
+				}, 3000);
 			};
 
-			$scope.cancelButton1 = function(){
-				angular.copy($scope.copyMessage, $scope.message);
-				console.log($scope.message);
+			$scope.cancelButton = function(){
+				$scope.messageEn = angular.copy($scope.previousSetting);
+				window.location.reload(false);
+				return $scope.messageEn;
 			};
 		});
